@@ -67,6 +67,7 @@ jQuery(function ($) {
 		render: function () {
 			var todos = this.getFilteredTodos();
 			$('.todo-list').html(this.todoTemplate(todos));
+      console.log($('.todo-list').html());
 			$('.main').toggle(todos.length > 0);
 			$('.toggle-all').prop('checked', this.getActiveTodos().length === 0);
 			this.renderFooter();
@@ -179,11 +180,10 @@ jQuery(function ($) {
 		},
 		update: function (e) {
 			var el = e.target;
-			var $el = $(el);
-			var val = $el.val().trim();
-			
-			if ($el.data('abort')) {
-				$el.data('abort', false);
+      var val = el.value.trim();
+
+			if (el.getAttribute('id') === 'abort') {
+				el.setAttribute('abort', false);
 			} else if (!val) {
 				this.destroy(e);
 				return;
@@ -200,8 +200,8 @@ jQuery(function ($) {
 	};
 
 	App.init();
-	
-	
+
+
 	// // Converting methods back to functions
 
 	// // Util section
@@ -239,7 +239,7 @@ jQuery(function ($) {
 	// var todos = store('todos-jquery');
 	// var todoTemplate = Handlebars.compile($('#todo-template').html());
 	// var footerTemplate = Handlebars.compile($('#footer-template').html());
-	
+
 	// function init() {
 	// 	bindEvents();
 
@@ -302,13 +302,13 @@ jQuery(function ($) {
 	// 		return !todo.completed;
 	// 	});
 	// }
-	
+
 	// function getCompletedTodos() {
 	// 	return todos.filter(function (todo) {
 	// 		return todo.completed;
 	// 	});
 	// }
-	
+
 	// function getFilteredTodos() {
 	// 	if (todos.status === 'active') {
 	// 		return getActiveTodos();
@@ -320,7 +320,7 @@ jQuery(function ($) {
 
 	// 	return todos;
 	// }
-	
+
 	// function destroyCompleted() {
 	// 	todos = getActiveTodos();
 	// 	render();
@@ -385,7 +385,7 @@ jQuery(function ($) {
 	// 	var el = e.target;
 	// 	var $el = $(el);
 	// 	var val = $el.val().trim();
-		
+
 	// 	if ($el.data('abort')) {
 	// 		$el.data('abort', false);
 	// 	} else if (!val) {
