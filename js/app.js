@@ -67,7 +67,6 @@ jQuery(function ($) {
 		render: function () {
 			var todos = this.getFilteredTodos();
 			$('.todo-list').html(this.todoTemplate(todos));
-      console.log($('.todo-list').html());
 			$('.main').toggle(todos.length > 0);
 			$('.toggle-all').prop('checked', this.getActiveTodos().length === 0);
 			this.renderFooter();
@@ -170,15 +169,20 @@ jQuery(function ($) {
 			input.focus();
 		},
 		editKeyup: function (e) {
+      //Succesfully ported to JS from jQuery
 			if (e.which === ENTER_KEY) {
 				e.target.blur();
 			}
 
 			if (e.which === ESCAPE_KEY) {
-				$(e.target).data('abort', true).blur();
+        var val = e.target;
+        val.setAttribute('abort', true);
+        val.blur();
+
 			}
 		},
 		update: function (e) {
+      //Succesfully ported to JS from jQuery
 			var el = e.target;
       var val = el.value.trim();
 
