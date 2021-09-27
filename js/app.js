@@ -65,12 +65,26 @@ jQuery(function ($) {
 
 		},
 		render: function () {
+    //Successfully ported to JS from jQuery
 			var todos = this.getFilteredTodos();
-			$('.todo-list').html(this.todoTemplate(todos));
-			$('.main').toggle(todos.length > 0);
-			$('.toggle-all').prop('checked', this.getActiveTodos().length === 0);
+
+      var todoList = document.querySelector('.todo-list');
+      todoList.innerHTML = this.todoTemplate(todos);
+
+      var main = document.querySelector('.main');
+      if(todos.length > 0) {
+        main.setAttribute('display', 'block');
+      }
+
+      var toggleAll = document.querySelector('.toggle-all');
+      if (toggleAll.checked) {
+        this.getActiveTodos().length === 0;
+      }
+
 			this.renderFooter();
-			$('.new-todo').focus();
+
+      var newTodo = document.querySelector('.new-todo');
+      newTodo.focus();
 			util.store('todos-jquery', this.todos);
 		},
 		renderFooter: function () {
