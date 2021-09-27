@@ -74,7 +74,6 @@ jQuery(function ($) {
       }.bind(this));
 
       todoList.addEventListener('dblclick', function(event) {
-        console.log(event);
         if(event.target.localName === 'label') {
           this.editingMode(event);
         }
