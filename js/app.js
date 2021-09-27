@@ -53,9 +53,16 @@ jQuery(function ($) {
 			}).init('/all');
 		},
 		bindEvents: function () {
-			$('.new-todo').on('keyup', this.create.bind(this));
-			$('.toggle-all').on('change', this.toggleAll.bind(this));
+			// $('.new-todo').on('keyup', this.create.bind(this));
+      var newTodo = document.querySelector('.new-todo');
+      newTodo.addEventListener('keyup', this.create.bind(this));
+
+			// $('.toggle-all').on('change', this.toggleAll.bind(this));
+      var toggleAll = document.querySelector('.toggle-all');
+      toggleAll.addEventListener('change', this.toggleAll.bind(this));
+
 			$('.footer').on('click', '.clear-completed', this.destroyCompleted.bind(this));
+
 			$('.todo-list')
 				 .on('change', '.toggle', this.toggle.bind(this))
 				.on('dblclick', 'label', this.editingMode.bind(this))
@@ -88,6 +95,7 @@ jQuery(function ($) {
 			util.store('todos-jquery', this.todos);
 		},
 		renderFooter: function () {
+      //Successfully ported to JS from jQuery
 			var todoCount = this.todos.length;
 			var activeTodoCount = this.getActiveTodos().length;
 			var activeTodoCount = this.getActiveTodos().length;
@@ -98,7 +106,12 @@ jQuery(function ($) {
 				filter: this.filter
 			});
 
-			$('.footer').toggle(todoCount > 0).html(template);
+      var footer = document.querySelector('.footer');
+      footer.style.display = 'none';
+      if (todoCount > 0) {
+        footer.style.display = 'block';
+        footer.innerHTML = template;
+      }
 		},
 		toggleAll: function (e) {
 			//Successfully ported to JS from jQuery
