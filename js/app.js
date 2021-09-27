@@ -53,26 +53,53 @@ jQuery(function ($) {
 			}).init('/all');
 		},
 		bindEvents: function () {
-			// $('.new-todo').on('keyup', this.create.bind(this));
       var newTodo = document.querySelector('.new-todo');
       newTodo.addEventListener('keyup', this.create.bind(this));
 
-			// $('.toggle-all').on('change', this.toggleAll.bind(this));
       var toggleAll = document.querySelector('.toggle-all');
       toggleAll.addEventListener('change', this.toggleAll.bind(this));
 
-			$('.footer').on('click', '.clear-completed', this.destroyCompleted.bind(this));
+      var footer = document.querySelector('.footer');
+      footer.addEventListener('click', function(event) {
+        if (event.target.className === 'clear-completed') {
+          this.destroyCompleted();
+        }
+      }.bind(this));
 
-			$('.todo-list')
-				 .on('change', '.toggle', this.toggle.bind(this))
-				.on('dblclick', 'label', this.editingMode.bind(this))
-				.on('keyup', '.edit', this.editKeyup.bind(this))
-				.on('focusout', '.edit', this.update.bind(this))
-				.on('click', '.destroy', this.destroy.bind(this));
+      var todoList = document.querySelector('.todo-list');
+      todoList.addEventListener('change', function(event) {
+        if (event.target.className === 'toggle') {
+          this.toggle(event);
+        }
+      }.bind(this));
+
+      todoList.addEventListener('dblclick', function(event) {
+        console.log(event);
+        if(event.target.localName === 'label') {
+          this.editingMode(event);
+        }
+      }.bind(this));
+
+      todoList.addEventListener('keyup', function(event) {
+        if(event.target.className === 'edit') {
+          this.editKeyup(event);
+        }
+      }.bind(this));
+
+      todoList.addEventListener('focusout', function(event) {
+        if(event.target.className === 'edit') {
+          this.update(event);
+        }
+      }.bind(this));
+
+      todoList.addEventListener('click', function(event) {
+        if(event.target.className === 'destroy') {
+          this.destroy(event);
+        }
+      }.bind(this));
 
 		},
 		render: function () {
-    //Successfully ported to JS from jQuery
 			var todos = this.getFilteredTodos();
 
       var todoList = document.querySelector('.todo-list');
@@ -95,7 +122,6 @@ jQuery(function ($) {
 			util.store('todos-jquery', this.todos);
 		},
 		renderFooter: function () {
-      //Successfully ported to JS from jQuery
 			var todoCount = this.todos.length;
 			var activeTodoCount = this.getActiveTodos().length;
 			var activeTodoCount = this.getActiveTodos().length;
@@ -114,7 +140,6 @@ jQuery(function ($) {
       }
 		},
 		toggleAll: function (e) {
-			//Successfully ported to JS from jQuery
       var isChecked = e.target.checked;
 
 			this.todos.forEach(function (todo) {
@@ -150,7 +175,6 @@ jQuery(function ($) {
 		},
 
 		getIndexFromEl: function (el) {
-			//Successfully ported to JS from jQuery
 			var id = el.closest('li').dataset.id;
 			var todos = this.todos;
 			var i = todos.length;
@@ -162,7 +186,6 @@ jQuery(function ($) {
 			}
 		},
 		create: function (e) {
-			//Succesfully ported to JS from jQuery
 			var input = e.target;
 			var val = input.value.trim();
 
@@ -186,7 +209,6 @@ jQuery(function ($) {
 			this.render();
 		},
 		editingMode: function (e) {
-			//Succesfully ported to JS from jQuery
 			var rawInput = e.target.closest('li');
 			rawInput.setAttribute('class', 'editing');
 
@@ -197,7 +219,6 @@ jQuery(function ($) {
 			input.focus();
 		},
 		editKeyup: function (e) {
-      //Succesfully ported to JS from jQuery
 			if (e.which === ENTER_KEY) {
 				e.target.blur();
 			}
@@ -210,7 +231,6 @@ jQuery(function ($) {
 			}
 		},
 		update: function (e) {
-      //Succesfully ported to JS from jQuery
 			var el = e.target;
       var val = el.value.trim();
 
