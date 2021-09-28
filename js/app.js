@@ -185,22 +185,14 @@ jQuery(function ($) {
 			}
 		},
 		create: function (e) {
-			var input = e.target;
-			var val = input.value.trim();
+      var value = e.target.value.trim();
 
-			if (e.which !== ENTER_KEY || !val) {
-				return;
-			}
-
-			this.todos.push({
-				id: util.uuid(),
-				title: val,
-				completed: false
-			});
-
-			input.value = '';
-
-			this.render();
+      if(e.which === ENTER_KEY) {
+        var id = util.uuid();
+        this.todos.push({id, title: value, completed: false});
+        e.target.value = '';
+        this.render();
+      }
 		},
 		toggle: function (e) {
 			var i = this.getIndexFromEl(e.target);
