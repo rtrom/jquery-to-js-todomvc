@@ -1,6 +1,6 @@
 /*global jQuery, Handlebars, Router */
-jQuery(function ($) {
-	'use strict';
+// jQuery(function ($) {
+// 	'use strict';
 
 	Handlebars.registerHelper('eq', function (a, b, options) {
 		return a === b ? options.fn(this) : options.inverse(this);
@@ -41,8 +41,12 @@ jQuery(function ($) {
 	var App = {
 		init: function () {
 			this.todos = util.store('todos-jquery');
-			this.todoTemplate = Handlebars.compile($('#todo-template').html());
-			this.footerTemplate = Handlebars.compile($('#footer-template').html());
+      var todoTemplate = document.getElementById('todo-template');
+      var footerTemplate = document.getElementById('footer-template');
+			// this.todoTemplate = Handlebars.compile($('#todo-template').html());
+      this.todoTemplate = Handlebars.compile(todoTemplate.innerHTML);
+			// this.footerTemplate = Handlebars.compile($('#footer-template').html());
+      this.footerTemplate = Handlebars.compile(footerTemplate.innerHTML);
 			this.bindEvents();
 
 			new Router({
@@ -455,5 +459,5 @@ jQuery(function ($) {
 	// }
 
 	// init();
-});
+// });
 
