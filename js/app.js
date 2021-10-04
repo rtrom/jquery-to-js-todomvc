@@ -223,8 +223,14 @@ Handlebars.registerHelper('eq', function (a, b, options) {
 		update: function (e) {
       var el = e.target;
       var val = el.value;
+      var position = this.getIndexFromEl(el);
 
-      this.todos[this.getIndexFromEl(el)].title = val;
+      if (e.target.hasAttribute('abort')) {
+        el.blur();
+      } else {
+        this.todos[position].title = val;
+      }
+
       this.render();
 
 		},
