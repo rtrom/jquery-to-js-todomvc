@@ -235,10 +235,10 @@ Handlebars.registerHelper('eq', function (a, b, options) {
 
 			this.render();
 		},
-		destroy: function (e) {
-			this.todos.splice(this.getIndexFromEl(e.target), 1);
-			this.render();
-		}
+		destroy: function(e) {
+      this.todos.splice(this.getIndexFromEl(e.target), 1);
+      this.render();
+    }
 	};
 
 	App.init();
