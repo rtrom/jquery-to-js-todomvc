@@ -221,19 +221,12 @@ Handlebars.registerHelper('eq', function (a, b, options) {
 			}
 		},
 		update: function (e) {
-			var el = e.target;
-      var val = el.value.trim();
+      var el = e.target;
+      var val = el.value;
 
-			if (el.getAttribute('id') === 'abort') {
-				el.setAttribute('abort', false);
-			} else if (!val) {
-				this.destroy(e);
-				return;
-			} else {
-				this.todos[this.getIndexFromEl(el)].title = val;
-			}
+      this.todos[this.getIndexFromEl(el)].title = val;
+      this.render();
 
-			this.render();
 		},
 		destroy: function(e) {
       this.todos.splice(this.getIndexFromEl(e.target), 1);
